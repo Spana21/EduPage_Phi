@@ -1,0 +1,613 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Zvětšený základní font pro celý dokument */
+body { 
+  font-family: 'DM Sans', sans-serif; 
+  font-size: 16px; 
+}
+
+/* --- ZÁKLADNÍ STRÁNKA (Obal) --- */
+.edu-page-body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+}
+
+/* --- TOHLE JE TVÉ ROZMAZANÉ POZADÍ S MODRÝM NÁDECHEM --- */
+.edu-page-body::before {
+  content: '';
+  position: absolute;
+  top: -20px; left: -20px; right: -20px; bottom: -20px; 
+  
+  /* Přidán lineární gradient (modrý filtr) přes tvůj obrázek */
+  background-image: linear-gradient(rgba(120, 160, 200, 0.4), rgba(120, 160, 200, 0.4)), url('/background.jpg'); 
+  background-size: cover;
+  background-position: center;
+  
+  /* Rozmazání */
+  filter: blur(10px); 
+  z-index: -1; 
+}
+
+.bokeh-dot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* --- HLAVNÍ BÍLÁ DESKA --- */
+.overlay-panel {
+  background: rgba(255,255,255,0.98); 
+  backdrop-filter: blur(12px);
+  border-radius: 12px; 
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  
+  width: 600px; 
+  max-width: 95vw;
+  padding: 45px 50px 40px; 
+  
+  position: relative;
+  z-index: 10;
+}
+
+.close-btn-log {
+  position: absolute;
+  top: 22px;
+  right: 28px;
+  background: none;
+  border: none;
+  font-size: 26px; /* Zvětšeno */
+  color: #555;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 20;
+  transition: color 0.15s;
+}
+.close-btn-log:hover { color: #111; }
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px; /* Trochu víc místa pod logem */
+}
+
+.logo-icon {
+  width: 42px; /* Větší logo */
+  height: 42px;
+  background: #4cae4f;
+  border-radius: 8px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px; /* Větší "E" */
+  font-weight: 700;
+  font-family: serif;
+  flex-shrink: 0;
+}
+
+.school-name {
+  font-size: 17px; /* Zvětšeno z 13px */
+  color: #777;
+  line-height: 1.4;
+  max-width: 450px; 
+}
+
+/* --- TEXTY A INPUTY --- */
+.heading {
+  font-size: 40px; /* Masivní nadpis jako v EduPage */
+  font-weight: 700; 
+  color: #333;
+  margin: 22px 0 26px;
+  letter-spacing: -0.5px;
+}
+
+.field-label {
+  display: block;
+  font-size: 14px; /* Zvětšeno z 12px */
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.input-wrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.input-icon-svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; /* Větší ikonka */
+  height: 20px;
+  opacity: 0.6;
+}
+
+.text-input {
+  width: 100%;
+  padding: 14px 14px 14px 44px; /* Více vnitřního prostoru a místa pro ikonku */
+  border: 1px solid #ccc; 
+  border-radius: 8px; /* Originál má o něco kulatější inputy */
+  font-size: 16px; /* Krásně čitelný velký text */
+  font-family: 'DM Sans', sans-serif;
+  color: #333;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.text-input::placeholder { color: #bbb; }
+.text-input:focus {
+  border-color: #4cae4f;
+  box-shadow: 0 0 0 3px rgba(76,174,79,0.12);
+}
+
+.forgot-link {
+  display: inline-block;
+  font-size: 14px; /* Zvětšený odkaz */
+  color: #00a0e3; 
+  text-decoration: none;
+  margin-bottom: 25px;
+  transition: color 0.15s;
+}
+.forgot-link:hover { color: #0077a8; text-decoration: underline; }
+
+.row-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 26px;
+}
+
+.submit-btn {
+  background: #4cae4f;
+  color: white;
+  border: none;
+  border-radius: 12px; /* Kulatější tlačítko jako originál */
+  padding: 12px 36px;
+  font-size: 16px; /* Větší text tlačítka */
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s;
+}
+.submit-btn:hover { background: #43a047; }
+.submit-btn:active { transform: scale(0.97); }
+
+.divider {
+  border: none;
+  border-top: 1px solid #eee;
+  margin-bottom: 18px;
+}
+
+.social-btns {
+  display: flex;
+  gap: 15px; /* Větší mezera mezi spodními odkazy */
+  justify-content: center;
+}
+
+.social-btn {
+  background: none;
+  border: none;
+  font-size: 13.5px; /* Zvětšeno */
+  color: #888;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  padding: 4px 6px;
+  transition: color 0.15s;
+}
+.social-btn:hover { color: #444; text-decoration: underline; }
+
+.cancel-btn-bar {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.cancel-btn {
+  background: rgba(255,255,255,0.88);
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 36px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  color: #444;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.15s;
+}
+.cancel-btn:hover { background: rgba(255,255,255,1); }
+
+.footer-note {
+  text-align: center;
+  font-size: 12.5px; /* Zvětšený footer */
+  color: #aaa;
+}
+.footer-note a { color: #aaa; text-decoration: none; }
+.footer-note a:hover { text-decoration: underline; }
+
+/* --- TŘÍDY PRO KROK 2 (HESLO) --- */
+.back-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 22px;
+}
+
+.back-btn {
+  background: #f0f0f0;
+  border: none;
+  width: 36px; /* Zvětšené tlačítko zpět */
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* Větší šipka */
+  color: #555;
+  transition: background 0.2s;
+}
+.back-btn:hover {
+  background: #e4e4e4;
+}
+
+.display-email {
+  font-size: 24px; /* Výrazně větší zobrazení jména ve 2. kroku */
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.3px;
+  word-break: break-all;
+}
+
+
+
+/* =========================================
+   5. MODÁLNÍ OKNO
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.modal-content {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  padding: 50px;
+  border: 1px solid #10b981; 
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.15); 
+  
+  width: 95%;
+  max-width: 1150px; /* width win */
+  
+  height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-content h3 {
+  font-size: 2.2rem;
+  color: #10b981; 
+  margin-bottom: 25px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.modal-info-section {
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.modal-text {
+  font-size: 1.15rem;
+  color: #e2e8f0;
+  margin-bottom: 20px;
+}
+
+.github-info {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-bottom: 25px;
+}
+
+.github-link {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+  transition: all 0.2s;
+}
+
+.github-link:hover {
+  color: #34d399;
+  border-bottom-color: #34d399;
+}
+
+/* Sekce se zárukou bezpečnosti */
+.security-guarantee {
+  background: rgba(16, 185, 129, 0.1);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  text-align: left;
+  margin: 25px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.security-guarantee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #10b981;
+}
+
+.security-guarantee h4 {
+  color: #10b981;
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.security-guarantee p {
+  font-size: 1.05rem;
+  color: #d1fae5;
+  line-height: 1.6;
+}
+
+/* Edukační sekce */
+.education-section {
+  text-align: left;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+.education-section h4 {
+  color: #f1f5f9;
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.edu-list {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .edu-list { grid-template-columns: 1fr; }
+}
+
+.edu-list li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 1rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.edu-list li::before {
+  content: "🛡️";
+  position: absolute;
+  left: 0;
+  font-size: 1.1rem;
+}
+
+.modal-divider {
+  border: none;
+  border-top: 1px solid #334155;
+  margin: 30px 0;
+  width: 100%;
+}
+
+/* Výběr věku v modálu */
+.age-selection-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  color: #f1f5f9;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.modal-select {
+  width: 100%;
+  max-width: 450px;
+  padding: 14px 20px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2310b981%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l128%20128c3.6%203.6%207.8%205.4%2013%205.4s9.3-1.8%2013-5.4l128-128c3.5-3.6%205.4-7.8%205.4-13%200-5-3.5-9.3-5.4-13z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 12px auto;
+}
+
+.modal-select:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+/* Souhlas */
+.agreement-wrapper {
+  margin-bottom: 30px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.checkbox-container input {
+  width: 22px;
+  height: 22px;
+  accent-color: #10b981;
+}
+
+/* Footer a tlačítko */
+.modal-footer {
+  margin-top: auto;
+}
+
+.small-note {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  background-color: #10b981;
+  color: #000; /* Černé písmo */
+  border: none;
+  padding: 18px 60px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+.close-btn:hover:not(:disabled) {
+  background-color: #34d399;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.4);
+}
+
+.close-btn:disabled {
+  background-color: #1e293b;
+  color: #475569;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Sekce kontaktů v modálu */
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.contact-card {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: border-color 0.3s;
+}
+
+.contact-card:hover {
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.contact-card h5 {
+  color: #34d399;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact-item a {
+  color: #f1f5f9;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-item a:hover {
+  color: #34d399;
+}
+
+@media (max-width: 600px) {
+  .contact-section { grid-template-columns: 1fr; }
+}
+
+/* =========================================
+   6. RESPONZIVITA (MOBIL)
+   ========================================= */
+@media (max-width: 600px) {
+  .login-card {
+    padding: 25px 15px;
+    width: 95%;
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+  }
+  
+  .modal-content h3 {
+    font-size: 1.6rem;
+  }
+
+  .security-guarantee, .education-section {
+    padding: 15px;
+  }
+  
+  .close-btn {
+    width: 100%;
+    padding: 15px;
+  }
+}
