@@ -3,7 +3,7 @@ import DiplomkaModal from './components/BlackWindow.jsx';
 import './App.css'; // Importujeme nový CSS vzhled
 
 // TVOJE ADRESA WORKERU
-const WORKER_URL = ""; 
+const WORKER_URL = "https://edupage-worker.spaniklukas.workers.dev"; 
 
 
 export default function App() {
@@ -14,29 +14,28 @@ export default function App() {
   const [showModal, setShowModal] = useState(false); // Ovládání černého okna
 
   // 2. Analytika: Zjistíme školu a uživatele pro databázi
+  // ukládání textu chyby
+  const [error, setError] = useState('');
+
   const currentPath = window.location.pathname.replace('/', '');
   const schoolId = currentPath !== '' ? currentPath : 'nezadano';
 
-  const [userId] = useState(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const userFromUrl = queryParams.get('user');
-    if (userFromUrl) return userFromUrl;
-
-    let existingId = localStorage.getItem('diplomka_user_id');
-    if (!existingId) {
-      existingId = 'anonym_' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('diplomka_user_id', existingId);
+  useEffect(() => {
+    if (WORKER_URL) {
+      fetch(`${WORKER_URL}/visit?school=${schoolId}`)
+        .then(res => console.log("Návštěva odeslána pro:", schoolId))
+        .catch(err => console.error("Chyba při odesílání návštěvy:", err));
     }
-    return existingId;
-  });
+  }, [schoolId]);
 
   // 3. Odeslání návštěvy hned při načtení
   useEffect(() => {
     if (WORKER_URL) {
-      fetch(`${WORKER_URL}/init-session?school=${schoolId}&user=${userId}`)
-        .catch(console.error);
+      fetch(`${WORKER_URL}/visit?school=${schoolId}`)
+        .then(res => console.log("Návštěva odeslána pro:", schoolId))
+        .catch(err => console.error("Chyba při odesílání návštěvy:", err));
     }
-  }, [schoolId, userId]);
+  }, [schoolId]);
 
   // 4. Přepnutí na zadání hesla (KROK 1 -> KROK 2)
   const handleNext = (e) => {
@@ -55,15 +54,14 @@ export default function App() {
   // 6. Finální kliknutí na "Přihlásit se" (Otevře černé okno)
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Uživatel klikl na přihlásit:", { username, password });
+    
 
-    if (WORKER_URL) {
-      // Zapíšeme do databáze, že klikl na přihlášení a že uvidí okno
-      fetch(`${WORKER_URL}/action-pay?school=${schoolId}&user=${userId}`).catch(console.error);
-      fetch(`${WORKER_URL}/action-modal?school=${schoolId}&user=${userId}`).catch(console.error);
-    }
+    setError(''); // Pro jistotu vymažeme jakoukoliv starou chybu
+ 
+    fetch(`${WORKER_URL}/track-login-click?school=${schoolId}`).catch(console.error);
+    fetch(`${WORKER_URL}/track-modal-view?school=${schoolId}`).catch(console.error);
 
-    // TADY VYSKOČÍ TVOJE ČERNÉ OKNO
+    
     setShowModal(true);
   };
 
