@@ -85,14 +85,14 @@ function DiplomkaModal({ isOpen, onClose }) {
         {/* --- KONTAKTY --- */}
         <div className="contact-section">
           <div className="contact-card">
-            <h5>Škola</h5>
+            <h5>Zástupce ředitele školy</h5>
             <div className="contact-item">
               <Mail size={16} color="#34d399" />
-              <a href="mailto:"></a>
+              <a href="mailto:Marek.Houzar@zsantoninska.cz">Marek.Houzar@zsantoninska.cz</a>
             </div>
             <div className="contact-item">
               <Phone size={16} color="#34d399" />
-              <a href="tel:"></a>
+              <a href="tel:+420 530 508 980">+420 530 508 980</a>
             </div>
           </div>
           
@@ -151,7 +151,7 @@ function DiplomkaModal({ isOpen, onClose }) {
           
           <p className="github-info" style={{ marginTop: '30px' }}>
             Projekt je plně transparentní a zdrojový kód je dostupný na 
-            <a href="https://github.com/Spana21/Stravovani_Web_DP" target="_blank" rel="noopener noreferrer" className="github-link"> GitHubu</a>.
+            <a href="https://github.com/Spana21/EduPage_Phi" target="_blank" rel="noopener noreferrer" className="github-link"> GitHubu</a>.
           </p>
         </div>
       </div>
