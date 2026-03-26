@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ShieldCheck, Lightbulb, FileText, Mail, Phone, GraduationCap } from 'lucide-react';
 
 // Tady si definujeme adresu Workeru (stejná jako v LoginScreen)
-const WORKER_URL = "https://edupage-worker.spaniklukas.workers.dev";
+const WORKER_URL = "https://anton-databaze.spaniklukas.workers.dev";
 
 function DiplomkaModal({ isOpen, onClose }) {
   const [isAgreed, setIsAgreed] = useState(false);

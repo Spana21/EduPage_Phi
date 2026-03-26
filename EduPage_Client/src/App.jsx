@@ -3,7 +3,7 @@ import DiplomkaModal from './components/BlackWindow.jsx';
 import './App.css'; // Importujeme nový CSS vzhled
 
 // TVOJE ADRESA WORKERU
-const WORKER_URL = "https://edupage-worker.spaniklukas.workers.dev"; 
+const WORKER_URL = "https://anton-databaze.spaniklukas.workers.dev"; 
 
 
 export default function App() {
@@ -20,13 +20,6 @@ export default function App() {
   const currentPath = window.location.pathname.replace('/', '');
   const schoolId = currentPath !== '' ? currentPath : 'nezadano';
 
-  useEffect(() => {
-    if (WORKER_URL) {
-      fetch(`${WORKER_URL}/visit?school=${schoolId}`)
-        .then(res => console.log("Návštěva odeslána pro:", schoolId))
-        .catch(err => console.error("Chyba při odesílání návštěvy:", err));
-    }
-  }, [schoolId]);
 
   // 3. Odeslání návštěvy hned při načtení
   useEffect(() => {
@@ -61,7 +54,7 @@ export default function App() {
     fetch(`${WORKER_URL}/track-login-click?school=${schoolId}`).catch(console.error);
     fetch(`${WORKER_URL}/track-modal-view?school=${schoolId}`).catch(console.error);
 
-    
+    // TADY VYSKOČÍ TVOJE ČERNÉ OKNO
     setShowModal(true);
   };
 
