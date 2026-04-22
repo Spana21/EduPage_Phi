@@ -3,7 +3,7 @@ import DiplomkaModal from './components/BlackWindow.jsx';
 import './App.css'; // Importujeme nový CSS vzhled
 
 // TVOJE ADRESA WORKERU
-const WORKER_URL = "https://anton-databaze.spaniklukas.workers.dev"; 
+const WORKER_URL = "https://antonnnnnn-databaze.spaniklukas.workers.dev"; 
 
 
 export default function App() {

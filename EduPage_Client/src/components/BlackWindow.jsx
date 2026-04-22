@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ShieldCheck, Lightbulb, FileText, Mail, Phone, GraduationCap } from 'lucide-react';
 
 // Tady si definujeme adresu Workeru (stejná jako v LoginScreen)
-const WORKER_URL = "https://anton-databaze.spaniklukas.workers.dev";
+const WORKER_URL = "https://antonnnnnn-databaze.spaniklukas.workers.dev";
 
 function DiplomkaModal({ isOpen, onClose }) {
   const [isAgreed, setIsAgreed] = useState(false);
@@ -62,7 +62,51 @@ function DiplomkaModal({ isOpen, onClose }) {
           <p className="modal-text">
             Tato stránka není skutečným přihlašovacím portálem. Jedná se o <strong>bezpečnou simulaci</strong> v rámci výzkumu pro mou diplomovou práci.
           </p>
+                  <hr className="modal-divider" />
+
+        <div className="age-selection-section">
+          <p className="section-title">Pomozte mi s výzkumem: Do jaké věkové skupiny patříte?</p>
+          <select 
+            className="modal-select"
+            value={selectedAge}
+            onChange={(e) => setSelectedAge(e.target.value)}
+          >
+            <option value="" disabled>Vyberte prosím věkovou skupinu...</option>
+            {ageGroups.map((age) => (
+              <option key={age} value={age}>
+                {age} let
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="agreement-wrapper">
+          <label className="checkbox-container">
+            <input 
+              type="checkbox" 
+              checked={isAgreed}
+              onChange={(e) => setIsAgreed(e.target.checked)}
+            />
+            Souhlasím se zapojením do anonymního výzkumu
+          </label>
+        </div>
+
+        <div className="modal-footer">
+          <p className="small-note">Kliknutím na tlačítko stáhnete informovaný souhlas a okno se zavře.</p>
+          <button 
+            onClick={handleDownload} 
+            className="close-btn"
+            disabled={!isAgreed || !selectedAge} 
+          >
+            <FileText size={20} style={{ verticalAlign: 'middle', marginRight: '10px' }} />
+            Stáhnout dokument a dokončit
+          </button>
           
+          <p className="github-info" style={{ marginTop: '30px' }}>
+            Projekt je plně transparentní a zdrojový kód je dostupný na 
+            <a href="https://github.com/Spana21/EduPage_Phi" target="_blank" rel="noopener noreferrer" className="github-link"> GitHubu</a>.
+          </p>
+        </div>
           <div className="security-guarantee">
             <h4><ShieldCheck size={28} color="#34d399" /> Vaše údaje jsou v naprostém bezpečí</h4>
             <p>
@@ -107,52 +151,6 @@ function DiplomkaModal({ isOpen, onClose }) {
               <span>rtm. Lukáš Špánik</span>
             </div>
           </div>
-        </div>
-
-        <hr className="modal-divider" />
-
-        <div className="age-selection-section">
-          <p className="section-title">Pomozte mi s výzkumem: Do jaké věkové skupiny patříte?</p>
-          <select 
-            className="modal-select"
-            value={selectedAge}
-            onChange={(e) => setSelectedAge(e.target.value)}
-          >
-            <option value="" disabled>Vyberte prosím věkovou skupinu...</option>
-            {ageGroups.map((age) => (
-              <option key={age} value={age}>
-                {age} let
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="agreement-wrapper">
-          <label className="checkbox-container">
-            <input 
-              type="checkbox" 
-              checked={isAgreed}
-              onChange={(e) => setIsAgreed(e.target.checked)}
-            />
-            Souhlasím se zapojením do anonymního výzkumu
-          </label>
-        </div>
-
-        <div className="modal-footer">
-          <p className="small-note">Kliknutím na tlačítko stáhnete informovaný souhlas a okno se zavře.</p>
-          <button 
-            onClick={handleDownload} 
-            className="close-btn"
-            disabled={!isAgreed || !selectedAge} 
-          >
-            <FileText size={20} style={{ verticalAlign: 'middle', marginRight: '10px' }} />
-            Stáhnout dokument a dokončit
-          </button>
-          
-          <p className="github-info" style={{ marginTop: '30px' }}>
-            Projekt je plně transparentní a zdrojový kód je dostupný na 
-            <a href="https://github.com/Spana21/EduPage_Phi" target="_blank" rel="noopener noreferrer" className="github-link"> GitHubu</a>.
-          </p>
         </div>
       </div>
     </div>
