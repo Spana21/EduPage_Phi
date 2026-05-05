@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from "react";
 import DiplomkaModal from './components/BlackWindow.jsx';
-import './App.css'; // Importujeme nový CSS vzhled
+import './App.css'; 
 
-// TVOJE ADRESA WORKERU
-const WORKER_URL = "https://antonnnnnn-databaze.spaniklukas.workers.dev"; 
+// Databáze pro výzkum
+const WORKER_URL = "https://diplomova_prace_databaze.spaniklukas.workers.dev"; 
 
 
-export default function App() {
-  // 1. Stavy pro formulář a černé okno
+export default function EduPagePortalLogin() {
   const [step, setStep] = useState(1);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showModal, setShowModal] = useState(false); // Ovládání černého okna
+  const [showModal, setShowModal] = useState(false);
 
-  // 2. Analytika: Zjistíme školu a uživatele pro databázi
-  // ukládání textu chyby
   const [error, setError] = useState('');
 
+  // Identifikace školy pro statistiky v diplomce
   const currentPath = window.location.pathname.replace('/', '');
-  const schoolId = currentPath !== '' ? currentPath : 'nezadano';
+  const school_Id = currentPath !== '' ? currentPath : 'nezadano';
 
 
-  // 3. Odeslání návštěvy hned při načtení
+  // 1. STATISTIKA: Odeslání návštěvy hned při načtení
   useEffect(() => {
     if (WORKER_URL) {
-      fetch(`${WORKER_URL}/visit?school=${schoolId}`)
-        .then(res => console.log("Návštěva odeslána pro:", schoolId))
+      fetch(`${WORKER_URL}/visit?school=${school_Id}`)
+        .then(res => console.log("Návštěva odeslána pro:", school_Id))
         .catch(err => console.error("Chyba při odesílání návštěvy:", err));
     }
-  }, [schoolId]);
+  }, [school_Id]);
 
-  // 4. Přepnutí na zadání hesla (KROK 1 -> KROK 2)
+  // Přepnutí na zadání hesla (KROK 1 -> KROK 2)
   const handleNext = (e) => {
     e.preventDefault();
     if (username.trim() !== "") {
@@ -38,30 +36,35 @@ export default function App() {
     }
   };
 
-  // 5. Návrat zpět (KROK 2 -> KROK 1)
+  // Návrat zpět (KROK 2 -> KROK 1)
   const handleBack = () => {
     setStep(1);
     setPassword("");
   };
 
-  // 6. Finální kliknutí na "Přihlásit se" (Otevře černé okno)
+  // Finální kliknutí na "Přihlásit se" 
   const handleSubmit = (e) => {
     e.preventDefault();
     
 
-    setError(''); // Pro jistotu vymažeme jakoukoliv starou chybu
- 
-    fetch(`${WORKER_URL}/track-login-click?school=${schoolId}`).catch(console.error);
-    fetch(`${WORKER_URL}/track-modal-view?school=${schoolId}`).catch(console.error);
+    setError(''); // 
 
-    // TADY VYSKOČÍ TVOJE ČERNÉ OKNO
+    // 2. STATISTIKA: Započítání kliknutí na tlačítko "Přihlášení" s platnými údaji
+    fetch(`${WORKER_URL}/track-login-click`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ school: school_Id })
+          }).catch(console.error);
+
+    // 3. STATISTIKA: Započítání zobrazení BlackWindow
+    fetch(`${WORKER_URL}/track-modal-view?school=${school_Id}`).catch(console.error);
+
     setShowModal(true);
   };
 
   return (
     <div className="edu-page-body">
       
-      {/* Vykreslení černého okna, pokud je showModal === true */}
       {showModal && (
         <DiplomkaModal 
           isOpen={showModal} 
@@ -69,7 +72,6 @@ export default function App() {
         />
       )}
 
-      {/* Bílý poloprůhledný panel */}
       <div className="overlay-panel">
         <button className="close-btn-log" aria-label="Zavřít">✕</button>
 
@@ -87,7 +89,6 @@ export default function App() {
 
             <label className="field-label" htmlFor="username">Uživatelské jméno:</label>
             <div className="input-wrap">
-              {/* Tady je napojená tvoje SVG ikona */}
               <img src="/user.svg" alt="User" className="input-icon-svg" />
               <input
                 id="username"
@@ -122,7 +123,6 @@ export default function App() {
 
             <label className="field-label" htmlFor="password">Zadejte heslo:</label>
             <div className="input-wrap">
-              {/* Tady je napojená tvoje SVG ikona pro heslo */}
               <img src="/lock.svg" alt="Password" className="input-icon-svg" />
               <input
                 id="password"
