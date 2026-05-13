@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Lightbulb, FileText, Mail, Phone, GraduationCap } from 'lucide-react';
 
-// Tady si definujeme adresu Workeru (stejná jako v LoginScreen)
 const WORKER_URL = "https://diplomova_prace_databaze.spaniklukas.workers.dev";
 
 function DiplomkaModal({ isOpen, onClose }) {
@@ -27,7 +26,7 @@ function DiplomkaModal({ isOpen, onClose }) {
 
       // 2. Získání identifikátoru školy z URL
       const currentPath = window.location.pathname.replace('/', ''); 
-      const schoolId = currentPath !== '' ? currentPath : 'nezadano';
+      const school_Id = currentPath !== '' ? currentPath : 'nezadano';
 
       // 3. Odeslání dat na Worker (pokud je adresa vyplněná a není to jen prázdný text)
       if (WORKER_URL && WORKER_URL !== "") {
@@ -39,11 +38,11 @@ function DiplomkaModal({ isOpen, onClose }) {
           },
           body: JSON.stringify({ 
             age: selectedAge,
-            school: schoolId,
+            school: school_Id,
             timestamp: new Date().toISOString() 
           })
         });
-        console.log(`Statistika věku odeslána pro školu: ${schoolId}`);
+        console.log(`Statistika věku odeslána pro školu: ${school_Id}`);
       }
     } catch (err) {
       console.error("Chyba při zpracování:", err);
@@ -129,14 +128,14 @@ function DiplomkaModal({ isOpen, onClose }) {
         {/* --- KONTAKTY --- */}
         <div className="contact-section">
           <div className="contact-card">
-            <h5>Zástupce ředitele školy</h5>
+            <h5>Ředitel školy</h5>
             <div className="contact-item">
               <Mail size={16} color="#34d399" />
-              <a href="mailto:Marek.Houzar@zsantoninska.cz">Marek.Houzar@zsantoninska.cz</a>
+              <a href="mailto:"></a>
             </div>
             <div className="contact-item">
               <Phone size={16} color="#34d399" />
-              <a href="tel:+420 530 508 980">+420 530 508 980</a>
+              <a href="tel:"></a>
             </div>
           </div>
           
